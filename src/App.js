@@ -10,7 +10,10 @@ var emojiDictionary = {
   "😑": "annoyance",
   "🎄": "Christmas Tree",
   "🔥": "fire",
-  "🐶": "dog"
+  "🐶": "dog",
+  "🤩": "Excited",
+  "😍": "Heart Face",
+  "😇": "Halo"
 };
 var emojis = Object.keys(emojiDictionary);
 
