@@ -1,7 +1,7 @@
-import React, { useState } from "react";
 import "./styles.css";
+import { useState } from "react";
 
-var emojiDictionary = {
+var emojis = {
   "😊": "smiling",
   "😳": "disbelief",
   "😔": "sad",
@@ -15,41 +15,48 @@ var emojiDictionary = {
   "😍": "Heart Face",
   "😇": "Halo"
 };
-var emojis = Object.keys(emojiDictionary);
 
-function App() {
+export default function App() {
   const [meaning, setMeaning] = useState("");
-  function emojiHandler(e) {
-    var userInput = e.target.value;
-    var meaning = emojiDictionary[userInput];
 
+  function inputChangeHandler(event) {
+    var userInput = event.target.value;
+    var meaning = emojis[userInput];
     if (meaning === undefined) {
-      meaning = "Not in our DB";
+      meaning = "Sorry, we dont have this emoji!";
     }
     setMeaning(meaning);
   }
-  function emojiHandler(emojis) {
-    var meaning = emojiDictionary[emojis];
+
+  function emojiHandler(emoji) {
+    var meaning = emojis[emoji];
     setMeaning(meaning);
   }
+
   return (
     <div className="App">
-      <h1>Welcome!</h1>
-      <input onChange={emojiHandler}></input>
-      <h2>{meaning}</h2>
-      <h3>Emojis we know</h3>
-      {emojis.map((emojis) => {
-        return (
-          <span
-            onClick={() => emojiHandler(emojis)}
-            style={{ fontSize: "2rem", margin: "1rem", cursor: "pointer" }}
-            key={emojis}
-          >
-            {emojis}
-          </span>
-        );
-      })}
+      <h1>
+        <span>emoji</span> Interpreter
+      </h1>
+      <input onChange={inputChangeHandler}></input>
+      <div id="res" style={{ fontSize: "2rem", fontWeight: "bold" }}>
+        {meaning}
+      </div>
+
+      <h3>Emojis we know:</h3>
+      <ul>
+        {Object.keys(emojis).map((emoji) => {
+          return (
+            <li
+              key={emoji}
+              onClick={() => emojiHandler(emoji)}
+              style={{ fontSize: "1.5rem", cursor: "pointer" }}
+            >
+              {emoji}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
-export default App;
